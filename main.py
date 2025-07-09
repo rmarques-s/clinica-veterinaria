@@ -18,3 +18,8 @@ if __name__ == '__main__':
 
 with app.app_context():
     db.create_all()
+    try:
+        db.session.execute('SELECT 1')
+        print("✅ Conexão com o banco de dados bem-sucedida!")
+    except Exception as e:
+        print("❌ Erro ao conectar com o banco de dados:", e)

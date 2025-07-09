@@ -8,3 +8,10 @@ class Clinica(db.Model):
     cidade = db.Column(db.String(100), nullable=False)
 
     veterinarios = db.relationship('Veterinario', back_populates='clinica', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'nome': self.nome,
+            'cidade': self.cidade
+        }

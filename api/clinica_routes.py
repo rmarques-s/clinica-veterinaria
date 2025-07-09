@@ -5,7 +5,11 @@ bp = Blueprint('clinica', __name__)
 
 @bp.route('/clinicas', methods=['POST'])
 def criar():
-    return jsonify(service.cadastrar_clinica(request.json)), 201
+    data = request.get_json()
+    nome = data['nome']
+    cidade = data['cidade']
+    clinica = service.cadastrar_clinica(nome, cidade)
+    return jsonify(clinica.to_dict()), 201
 
 @bp.route('/clinicas', methods=['GET'])
 def listar():

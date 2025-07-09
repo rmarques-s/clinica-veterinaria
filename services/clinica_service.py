@@ -1,7 +1,7 @@
 import repositories.clinica_repository as repo
 
-def cadastrar_clinica(data):
-    return repo.criar_clinica(data['nome'], data['cidade'])
+def cadastrar_clinica(nome, cidade):
+    return repo.criar_clinica(nome, cidade)
 
 def obter_clinicas():
     return repo.listar_clinicas()
