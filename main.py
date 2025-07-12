@@ -1,4 +1,5 @@
 from flask import Flask
+from sqlalchemy import text
 from database import init_db
 from api import clinica_routes, veterinario_routes, tutor_routes, pet_routes, atendimento_routes
 from database import init_db, db
@@ -14,12 +15,12 @@ app.register_blueprint(pet_routes.bp, url_prefix="/api")
 app.register_blueprint(atendimento_routes.bp, url_prefix="/api")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    with app.app_context():
+        db.create_all()
+        try:
+            db.session.execute(text('SELECT 1'))
+            print("✅ Conexão com o banco de dados bem-sucedida!")
+        except Exception as e:
+            print("❌ Erro ao conectar com o banco de dados:", e)
 
-with app.app_context():
-    db.create_all()
-    try:
-        db.session.execute('SELECT 1')
-        print("✅ Conexão com o banco de dados bem-sucedida!")
-    except Exception as e:
-        print("❌ Erro ao conectar com o banco de dados:", e)
+    app.run(debug=True)

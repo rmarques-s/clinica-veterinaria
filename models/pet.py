@@ -12,3 +12,12 @@ class Pet(db.Model):
     tutor = db.relationship('Tutor', back_populates='pets')
 
     atendimentos = db.relationship('Atendimento', back_populates='pet', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+      return {
+          'id': self.id,
+          'nome': self.nome,
+          'especie': self.especie,
+          'idade': self.idade,
+          'tutor_id': self.tutor_id
+      }

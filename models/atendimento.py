@@ -13,3 +13,12 @@ class Atendimento(db.Model):
 
     veterinario_id = db.Column(db.Integer, db.ForeignKey('veterinarios.id'), nullable=False)
     veterinario = db.relationship('Veterinario', back_populates='atendimentos')
+    
+    def to_dict(self):
+      return {
+          'id': self.id,
+          'data': self.data.isoformat(),
+          'descricao': self.descricao,
+          'pet_id': self.pet_id,
+          'veterinario_id': self.veterinario_id
+      }

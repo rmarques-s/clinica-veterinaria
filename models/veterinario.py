@@ -11,3 +11,11 @@ class Veterinario(db.Model):
     clinica = db.relationship('Clinica', back_populates='veterinarios')
 
     atendimentos = db.relationship('Atendimento', back_populates='veterinario', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+      return {
+          'id': self.id,
+          'nome': self.nome,
+          'especialidade': self.especialidade,
+          'clinica_id': self.clinica_id
+      }

@@ -8,3 +8,10 @@ class Tutor(db.Model):
     telefone = db.Column(db.String(20), nullable=False)
 
     pets = db.relationship('Pet', back_populates='tutor', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+      return {
+          'id': self.id,
+          'nome': self.nome,
+          'telefone': self.telefone
+      }
