@@ -1,4 +1,5 @@
 from flask import Flask
+from flasgger import Swagger
 from sqlalchemy import text
 from database import init_db
 from api import clinica_routes, veterinario_routes, tutor_routes, pet_routes, atendimento_routes
@@ -6,6 +7,13 @@ from database import init_db, db
 from models import clinica, veterinario, tutor, pet, atendimento
 
 app = Flask(__name__)
+
+app.config['SWAGGER'] = {
+    'title': 'Clínica Veterinária API',
+    'uiversion': 3
+}
+Swagger(app)
+
 init_db(app)
 
 app.register_blueprint(clinica_routes.bp, url_prefix="/api")
